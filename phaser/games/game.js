@@ -4,8 +4,8 @@ var scene = new Phaser.Scene("game");
 
 var config = {
 	type: Phaser.AUTO,
-	width: window.innerWidth,
-	height: window.innerHeight,
+	width: window.innerWidth-20,
+	height: window.innerHeight-20,
 	physics: {
         default: 'arcade',
         arcade: {
