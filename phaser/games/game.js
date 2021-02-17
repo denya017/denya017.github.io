@@ -1,6 +1,6 @@
-
 // Our game scene
 var scene = new Phaser.Scene("game");
+
 
 var config = {
 	type: Phaser.AUTO,
@@ -20,6 +20,7 @@ var config = {
 // this will also inject our canvas element into the HTML source 
 // for us
 var game = new Phaser.Game(config);
+var SetOnFlore = false;
 
 scene.init = function() {
 	this.score = 0;
@@ -45,6 +46,7 @@ scene.preload = function() {
 };
 var sprite;
 var layermy;
+var map;
 scene.create = function() {
 
 	// add the background
@@ -52,7 +54,7 @@ scene.create = function() {
    	bg.setOrigin(0,0);
    	bg.setScrollFactor(0);
 
-   	const map = this.make.tilemap({ key: 'tilemap' });
+   	map = this.make.tilemap({ key: 'tilemap' });
 
 	// add the tileset image we are using
 	const tileset = map.addTilesetImage('tile0', 'tile0');
@@ -70,7 +72,11 @@ scene.create = function() {
 	//sprite.setCollideWorldBounds(true);
 
 
-	this.physics.add.collider(sprite, layermy);
+		
+	this.physics.add.collider(sprite, layermy, function(){
+		SetOnFlore = true;
+
+	});
 	
 	//layermy.setCollisionByProperty({collides:true});
 	//layermy.setCollision([36,56,21]);
@@ -123,23 +129,23 @@ scene.update = function() {
 	}
 
 
-	if (cursors.up.isDown)
-	{
-	    sprite.setVelocityY(-260);
+	// if (cursors.up.isDown)
+	// {
+	//     sprite.setVelocityY(-260);
 
-	    //sprite.anims.play('player_left', true);
-	}
+	//     //sprite.anims.play('player_left', true);
+	// }
 	// else
 	// {
 	//     sprite.setVelocityY(0);
 
 	//     sprite.anims.play('player_stay');
 	// }
-
-if (cursors.up.isDown && sprite.body.touching.down)
-{
-    sprite.setVelocityY(-330);
-}
+	if (cursors.up.isDown && SetOnFlore)
+	{
+	    sprite.setVelocityY(-330);
+	    SetOnFlore = false;
+	}
 };
 
 
