@@ -1,6 +1,7 @@
 // Our game scene
 var scene = new Phaser.Scene("game");
 
+import LoadingScene from "/phaser/games/LoadingScene.js"
 
 var config = {
 	type: Phaser.AUTO,
@@ -45,8 +46,10 @@ scene.preload = function() {
 	this.load.tilemapTiledJSON('tilemap', 'assets/map/mymap.json');
 };
 var sprite;
-var layermy;
+var Floor;
 var map;
+var cursors;
+
 scene.create = function() {
 
 	// add the background
@@ -60,7 +63,7 @@ scene.create = function() {
 	const tileset = map.addTilesetImage('tile0', 'tile0');
 	
 	// create the layers we want in the right order
-	layermy = map.createStaticLayer('layer1', tileset);
+	Floor = map.createStaticLayer('layer1', tileset);
 
 
 
@@ -73,15 +76,15 @@ scene.create = function() {
 
 
 		
-	this.physics.add.collider(sprite, layermy, function(){
+	this.physics.add.collider(sprite, Floor, function(){
 		SetOnFlore = true;
 
 	});
 	
-	//layermy.setCollisionByProperty({collides:true});
-	//layermy.setCollision([36,56,21]);
-	//layermy.setCollisionByExclusion([0]);
-	layermy.setCollisionBetween(1, 100);
+	//Floor.setCollisionByProperty({collides:true});
+	//Floor.setCollision([36,56,21]);
+	//Floor.setCollisionByExclusion([0]);
+	Floor.setCollisionBetween(1, 100);
 
 
 	this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
